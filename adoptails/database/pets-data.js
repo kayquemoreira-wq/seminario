@@ -1,0 +1,87 @@
+// Adoptails - Dados iniciais (simulando banco de dados)
+const INITIAL_PETS = [
+    {
+        id: '2',
+        nome: 'Larry',
+        especie: 'gato',
+        sexo: 'Fêmea',
+        porte: 'Pequeno',
+        idade: '3 anos',
+        foto: 'https://i.pinimg.com/736x/ad/3c/0d/ad3c0d743cd424d6429dbb80ffe2e374.jpg',
+        tags: ['Larry', 'Vacinada', 'Castrada'],
+        historia: 'Larry foi resgatada em um dia chuvoso no centro da cidade. Ele adora dormir no colo e é muito paranoico.',
+        vacinado: true,
+        castrado: true,
+        localizacao: 'São Paulo - SP'
+    },
+    {
+        id: '2',
+        nome: 'Tico',
+        especie: 'cachorro',
+        sexo: 'Macho',
+        porte: 'Médio',
+        idade: '1 ano',
+        foto: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
+        tags: ['Brincante', 'Energético', 'Dócil'],
+        historia: 'Tico é um jovem cheio de energia que ama brincar de bolinha e correr no parque. Ideal para famílias ativas.',
+        vacinado: true,
+        castrado: true,
+        localizacao: 'Campinas - SP'
+    },
+    {
+        id: '3',
+        nome: 'Mel',
+        especie: 'cachorro',
+        sexo: 'Fêmea',
+        porte: 'Pequeno',
+        idade: '5 meses',
+        foto: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=800&q=80',
+        tags: ['Filhote', 'Sociável', 'Vacinada'],
+        historia: 'Mel é uma filhotinha dócil que foi encontrada com seus irmãos. Ela se dá muito bem com outros cachorros e crianças.',
+        vacinado: true,
+        castrado: false,
+        localizacao: 'São Paulo - SP'
+    },
+    {
+        id: '4',
+        nome: 'Simba',
+        especie: 'gato',
+        sexo: 'Macho',
+        porte: 'Médio',
+        idade: '8 meses',
+        foto: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=800&q=80',
+        tags: ['Curioso', 'Castrado', 'Sociável'],
+        historia: 'Simba ama olhar a janela e brincar com arranhadores. É muito sociável e mansinho.',
+        vacinado: true,
+        castrado: true,
+        localizacao: 'Santo André - SP'
+    },
+    {
+        id: '5',
+        nome: 'Pipoca',
+        especie: 'outro',
+        sexo: 'Fêmea',
+        porte: 'Pequeno',
+        idade: '1 ano',
+        foto: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=800&q=80',
+        tags: ['Coelho', 'Calma', 'Fofa'],
+        historia: 'Pipoca é uma coelhinha graciosa resgatada de maus tratos. Adora comer folhas frescas e carinho nas orelhas.',
+        vacinado: true,
+        castrado: true,
+        localizacao: 'São José dos Campos - SP'
+    },
+    {
+        id: '6',
+        nome: 'Bob',
+        especie: 'cachorro',
+        sexo: 'Macho',
+        porte: 'Grande',
+        idade: '4 anos',
+        foto: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80',
+        tags: ['Protetor', 'Gentil', 'Castrado'],
+        historia: 'Bob é um gigante bondoso. Apesar do tamanho, é um cão dócil, tranquilo e ótimo companheiro de caminhadas.',
+        vacinado: true,
+        castrado: true,
+        localizacao: 'São Paulo - SP'
+    }
+];

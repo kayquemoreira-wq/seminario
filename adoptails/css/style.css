@@ -1,0 +1,8 @@
+/* Adoptails - Dê uma patinha | Estilos personalizados */
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+h1, h2, h3, h4, h5, h6, .font-title { font-family: 'Outfit', sans-serif; }
+.glass-card {
+    background: #fff7d7;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
