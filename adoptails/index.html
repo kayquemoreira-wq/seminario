@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoptails - Dê uma patinha</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-amber-50/40 text-warmGray-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Navbar -->
+    <header class="cabecalho">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="logo">
+                        <img src="img/adoptail de lado.png">
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-6 text-sm font-semibold text-warmGray-800">
+                    <a href="#home" class="px-3 py-2 rounded-xl hover:text-brand-600 hover:bg-amber-50 transition">Início</a>
+                    <a href="#pets" class="px-3 py-2 rounded-xl hover:text-brand-600 hover:bg-amber-50 transition">Animais</a>
+                    <a href="#como-ajudar" class="px-3 py-2 rounded-xl hover:text-brand-600 hover:bg-amber-50 transition">Como Ajudar</a>
+                    <a href="#depoimentos" class="px-3 py-2 rounded-xl hover:text-brand-600 hover:bg-amber-50 transition">Histórias</a>
+                    <a href="#contato" class="px-3 py-2 rounded-xl hover:text-brand-600 hover:bg-amber-50 transition">Contato</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="hidden md:flex items-center gap-3">
+                    <button onclick="openModal('modalCadastrarPet')" class="heart">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>Cadastrar Pet</span>
+                    </button>
+                    <button onclick="toggleFavoritosDrawer()" class="relative p-2.5 rounded-xl border border-warmGray-200 hover:bg-amber-50 text-warmGray-800 transition" title="Meus Favoritos">
+                        <i class="fa-solid fa-heart text-amber-600 text-lg"></i>
+                        <span id="favCountBadge" class="absolute -top-1.5 -right-1.5 bg-brand-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">0</span>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="flex md:hidden items-center gap-2">
+                    <button onclick="toggleFavoritosDrawer()" class="relative p-2 rounded-lg text-warmGray-800 hover:bg-amber-50">
+                        <i class="fa-solid fa-heart text-amber-600 text-xl"></i>
+                        <span id="favCountBadgeMobile" class="absolute -top-1 -right-1 bg-brand-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">0</span>
+                    </button>
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2.5 rounded-xl text-warmGray-800 hover:bg-amber-50 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-amber-100 bg-white px-4 pt-3 pb-6 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-warmGray-800 hover:bg-amber-50">Início</a>
+            <a href="#pets" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-warmGray-800 hover:bg-amber-50">Animais para Adoção</a>
+            <a href="#como-ajudar" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-warmGray-800 hover:bg-amber-50">Como Ajudar</a>
+            <a href="#depoimentos" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-warmGray-800 hover:bg-amber-50">Histórias de Sucesso</a>
+            <a href="#contato" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-medium text-warmGray-800 hover:bg-amber-50">Contato</a>
+            <button onclick="openModal('modalCadastrarPet'); toggleMobileMenu()" class="w-full mt-2 flex items-center justify-center gap-2 bg-tealBrand-600 text-white py-3 rounded-xl font-semibold shadow">
+                <i class="fa-solid fa-plus-circle"></i>
+                <span>Cadastrar Novo Pet</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Hero Banner Section -->
+    <section id="home" class="relative overflow-hidden pt-8 pb-16 lg:py-20 bg-gradient-to-b from-amber-50/80 via-orange-50/30 to-amber-50/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-orange-100/80 border border-orange-200/80 text-brand-800 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+                        Transforme uma vida hoje mesmo
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-amber-950 tracking-tight leading-[1.15]">
+                        Um novo amigo com rabo abanando está <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-amber-500">esperando por você.</span>
+                    </h1>
+
+                    <p class="text-lg text-warmGray-800 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        No <strong>Adoptails</strong>, acreditamos que todo animal merece amor, carinho e um lar quentinho. Conectamos protetores e ONGs com pessoas com o coração aberto para adotar.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#pets" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg shadow-brand-500/25 hover:shadow-xl hover:-translate-y-0.5 transition duration-200">
+                            <span>Conheça Nossos Pets</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#como-ajudar" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-amber-50 text-warmGray-800 border-2 border-amber-200/80 px-8 py-4 rounded-2xl font-bold text-lg shadow-sm transition">
+                            <i class="fa-solid fa-heart text-brand-600"></i>
+                            <span>Quero Ajudar</span>
+                        </a>
+                    </div>
+
+                    <!-- Impact Badges -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-amber-200/50 max-w-md mx-auto lg:mx-0">
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-amber-950">450+</p>
+                            <p class="text-xs sm:text-sm text-warmGray-800">Pets Salvos</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-amber-950">380+</p>
+                            <p class="text-xs sm:text-sm text-warmGray-800">Adoções Felizes</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-amber-950">100%</p>
+                            <p class="text-xs sm:text-sm text-warmGray-800">Amor Dedicado</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Image Banner -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Decorative background element -->
+                        <div class="absolute -top-6 -left-6 w-72 h-72 bg-amber-200/50 rounded-full blur-3xl -z-10"></div>
+                        <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-teal-200/40 rounded-full blur-3xl -z-10"></div>
+
+                        <!-- Main Image Frame -->
+                        <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white relative">
+                            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=80" alt="Cão e gato felizes" class="w-full h-[420px] object-cover hover:scale-105 transition duration-700">
+                            
+                            <!-- Floating Tag -->
+                            <div class="absolute bottom-4 left-4 right-4 glass-card p-4 rounded-2xl flex items-center gap-4 shadow-lg">
+                                <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-brand-600 text-xl font-bold flex-shrink-0">
+                                    🐶
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-xs font-bold text-brand-700 uppercase tracking-wider">História Recente</p>
+                                    <p class="text-sm font-semibold text-warmGray-800">Pipoca encontrou uma família amorosa semana passada!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section with Search and Filters -->
+    <section id="pets" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-brand-600 font-bold uppercase tracking-wider text-xs sm:text-sm">Encontre seu novo amigo</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-amber-950 mt-1">Animais Esperando um Lar</h2>
+                <p class="text-warmGray-800 mt-2">Utilize os filtros abaixo para encontrar o companheiro que mais combina com seu estilo de vida.</p>
+            </div>
+
+            <!-- Search & Filters Bar -->
+            <div class="bg-amber-50/70 p-6 rounded-3xl border border-amber-100 shadow-sm mb-10">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    
+                    <!-- Search Input -->
+                    <div class="lg:col-span-1">
+                        <label class="block text-xs font-bold text-warmGray-800 mb-1">Buscar por Nome</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-search absolute left-3.5 top-3 text-warmGray-800"></i>
+                            <input type="text" id="filterSearch" oninput="applyFilters()" placeholder="Ex: Bob, Luna..." class="w-full pl-10 pr-3 py-2.5 bg-white border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        </div>
+                    </div>
+
+                    <!-- Especie Filter -->
+                    <div>
+                        <label class="block text-xs font-bold text-warmGray-800 mb-1">Espécie</label>
+                        <select id="filterEspecie" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-white border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="todos">Todas as Espécies</option>
+                            <option value="cachorro">Cachorros 🐶</option>
+                            <option value="gato">Gatos 🐱</option>
+                            <option value="outro">Outros 🐰</option>
+                        </select>
+                    </div>
+
+                    <!-- Porte Filter -->
+                    <div>
+                        <label class="block text-xs font-bold text-warmGray-800 mb-1">Porte</label>
+                        <select id="filterPorte" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-white border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="todos">Todos os Portes</option>
+                            <option value="Pequeno">Pequeno</option>
+                            <option value="Médio">Médio</option>
+                            <option value="Grande">Grande</option>
+                        </select>
+                    </div>
+
+                    <!-- Sexo Filter -->
+                    <div>
+                        <label class="block text-xs font-bold text-warmGray-800 mb-1">Sexo</label>
+                        <select id="filterSexo" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-white border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="todos">Todos</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Fêmea">Fêmea</option>
+                        </select>
+                    </div>
+
+                    <!-- Reset Button -->
+                    <div class="flex items-end">
+                        <button onclick="resetFilters()" class="w-full py-2.5 px-4 bg-warmGray-200 hover:bg-warmGray-300 text-warmGray-800 rounded-xl font-medium text-sm transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            <span>Limpar Filtros</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Pets Cards Grid Container -->
+            <div id="petsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Javascript irá renderizar os cards dinamicamente aqui -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-16 bg-amber-50/40 rounded-3xl border border-dashed border-amber-200">
+                <i class="fa-solid fa-dog text-5xl text-amber-300 mb-3 block"></i>
+                <h3 class="text-xl font-bold text-warmGray-800">Nenhum amigo encontrado</h3>
+                <p class="text-warmGray-800 text-sm mt-1">Tente ajustar os seus filtros de busca para encontrar outros pets.</p>
+                <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-brand-600 text-white rounded-xl font-semibold text-sm">Ver todos os pets</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- How You Can Help Section -->
+    <section id="como-ajudar" class="py-16 bg-gradient-to-b from-amber-50/50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-tealBrand-600 font-bold uppercase tracking-wider text-xs sm:text-sm">Maneiras de Contribuir</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-amber-950 mt-1">Como Você Pode Mudar uma Vida</h2>
+                <p class="text-warmGray-800 mt-2">Mesmo que não possa adotar agora, você pode ser o herói de um animal resgatado de diversas formas.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Option 1: Adotar -->
+                <div class="bg-white p-8 rounded-3xl border border-amber-100 shadow-sm hover:shadow-md transition text-center flex flex-col justify-between">
+                    <div>
+                        <div class="w-16 h-16 bg-orange-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                            <i class="fa-solid fa-house-chimney-heart"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-amber-950 mb-3">Adote um Pet</h3>
+                        <p class="text-warmGray-800 text-sm leading-relaxed mb-6">
+                            Dê a chance de um recomeço a um animal resgatado. Ganhe um companheiro fiel para toda a vida.
+                        </p>
+                    </div>
+                    <a href="#pets" class="inline-block w-full py-3 bg-amber-100 hover:bg-amber-200 text-brand-800 font-bold rounded-xl text-sm transition">Procurar Pets</a>
+                </div>
+
+                <!-- Option 2: Doar via Pix -->
+                <div class="bg-white p-8 rounded-3xl border border-amber-100 shadow-sm hover:shadow-md transition text-center flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -top-3 -right-3 bg-tealBrand-500 text-white text-[10px] uppercase tracking-widest font-extrabold px-3 py-1.5 rounded-bl-xl shadow-sm">Urgente</div>
+                    <div>
+                        <div class="w-16 h-16 bg-teal-100 text-tealBrand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-amber-950 mb-3">Faça uma Doação</h3>
+                        <p class="text-warmGray-800 text-sm leading-relaxed mb-4">
+                            Sua contribuição financeira ajuda na compra de ração, vacinas e cuidados médicos veterinários.
+                        </p>
+                        
+                        <!-- PIX Box -->
+                        <div class="bg-amber-50 p-3 rounded-2xl border border-amber-200/70 mb-6 text-left">
+                            <p class="text-xs font-bold text-warmGray-800 mb-1">Chave PIX (E-mail):</p>
+                            <div class="flex items-center justify-between bg-white px-3 py-2 rounded-xl border border-amber-200">
+                                <span id="pixKeyText" class="text-xs font-mono font-bold text-amber-900 truncate">pix@adoptails.org.br</span>
+                                <button onclick="copiarPix()" class="text-xs text-brand-600 font-bold hover:text-brand-700 ml-2 flex-shrink-0 flex items-center gap-1">
+                                    <i class="fa-solid fa-copy"></i> Copiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="copiarPix()" class="w-full py-3 bg-tealBrand-600 hover:bg-tealBrand-700 text-white font-bold rounded-xl text-sm transition shadow">Doar Qualquer Valor</button>
+                </div>
+
+                <!-- Option 3: Voluntariado -->
+                <div class="bg-white p-8 rounded-3xl border border-amber-100 shadow-sm hover:shadow-md transition text-center flex flex-col justify-between">
+                    <div>
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                            <i class="fa-solid fa-hands-helping"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-amber-950 mb-3">Seja Voluntário</h3>
+                        <p class="text-warmGray-800 text-sm leading-relaxed mb-6">
+                            Doe seu tempo! Precisamos de ajuda para passeios, feiras de adoção, transporte e divulgação nas redes.
+                        </p>
+                    </div>
+                    <button onclick="openModal('modalVoluntario')" class="w-full py-3 bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold rounded-xl text-sm transition">Quero me Voluntariar</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Success Stories -->
+    <section id="depoimentos" class="py-16 bg-white border-t border-amber-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-brand-600 font-bold uppercase tracking-wider text-xs sm:text-sm">Finais Felizes</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-amber-950 mt-1">Histórias de Amor e Transformação</h2>
+                <p class="text-warmGray-800 mt-2">Veja como o Adoptails mudou a vida de pets e suas novas famílias.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-amber-50/50 p-6 rounded-3xl border border-amber-100 relative">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Mariana" class="w-14 h-14 rounded-full object-cover border-2 border-brand-500">
+                        <div>
+                            <h4 class="font-bold text-amber-950">Mariana & Thor</h4>
+                            <p class="text-xs text-warmGray-800">Adotou há 6 meses</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-warmGray-800 leading-relaxed italic">
+                        "O Thor chegou tímido, mas hoje é o coração da nossa casa! O processo de adoção no Adoptails foi super atencioso e transparente. Não imagino mais minha vida sem ele!"
+                    </p>
+                    <div class="mt-4 text-amber-400 text-xs flex gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-amber-50/50 p-6 rounded-3xl border border-amber-100 relative">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Carlos" class="w-14 h-14 rounded-full object-cover border-2 border-brand-500">
+                        <div>
+                            <h4 class="font-bold text-amber-950">Carlos & Mia</h4>
+                            <p class="text-xs text-warmGray-800">Adotou há 1 ano</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-warmGray-800 leading-relaxed italic">
+                        "Adotar a Mia foi a melhor decisão. Ela enche o apartamento de alegria. Recomendo demais a plataforma Adoptails para quem procura um companheiro!"
+                    </p>
+                    <div class="mt-4 text-amber-400 text-xs flex gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-amber-50/50 p-6 rounded-3xl border border-amber-100 relative">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80" alt="Camila" class="w-14 h-14 rounded-full object-cover border-2 border-brand-500">
+                        <div>
+                            <h4 class="font-bold text-amber-950">Camila & Bolinha</h4>
+                            <p class="text-xs text-warmGray-800">Adotou há 2 meses</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-warmGray-800 leading-relaxed italic">
+                        "Encontramos o Bolinha velhinho no site. Adotar um pet idoso foi uma experiência gratificante de puro carinho. Dê uma oportunidade você também!"
+                    </p>
+                    <div class="mt-4 text-amber-400 text-xs flex gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-amber-950 text-amber-100 pt-16 pb-8 border-t border-amber-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-amber-900/80">
+                
+                <!-- Col 1: Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center text-white text-xl">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <span class="text-2xl font-extrabold text-white">Adoptails</span>
+                    </div>
+                    <p class="text-sm text-amber-200/80 mb-6 leading-relaxed">
+                        Conectando corações e focinhos. Nossa missão é garantir um lar digno e cheio de amor para todo animal resgatado.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-amber-900 hover:bg-brand-600 flex items-center justify-center text-amber-200 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-amber-900 hover:bg-brand-600 flex items-center justify-center text-amber-200 hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-amber-900 hover:bg-brand-600 flex items-center justify-center text-amber-200 hover:text-white transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold text-base mb-4">Navegação Rápida</h4>
+                    <ul class="space-y-2 text-sm text-amber-200/80">
+                        <li><a href="#home" class="hover:text-white transition">Início</a></li>
+                        <li><a href="#pets" class="hover:text-white transition">Animais para Adoção</a></li>
+                        <li><a href="#como-ajudar" class="hover:text-white transition">Como Ajudar / PIX</a></li>
+                        <li><a href="#depoimentos" class="hover:text-white transition">Depoimentos</a></li>
+                        <li><button onclick="openModal('modalCadastrarPet')" class="hover:text-white transition">Cadastrar Pet para Adoção</button></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact Info -->
+                <div>
+                    <h4 class="text-white font-bold text-base mb-4">Contato & Endereço</h4>
+                    <ul class="space-y-3 text-sm text-amber-200/80">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-brand-500"></i>
+                            <span>Av. das Patinhas, 1234 - Bairro do Amor, São Paulo - SP</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-brand-500"></i>
+                            <span>contato@adoptails.org.br</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-brand-500"></i>
+                            <span>(11) 98765-4321</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div>
+                    <h4 class="text-white font-bold text-base mb-4">Boletim Informativo</h4>
+                    <p class="text-sm text-amber-200/80 mb-3">Receba fotos de novos pets cadastrados no seu e-mail.</p>
+                    <form onsubmit="alertNotification('Obrigado! Você se inscreveu no boletim do Adoptails.'); return false;" class="space-y-2">
+                        <input type="email" required placeholder="Seu e-mail aqui..." class="w-full px-3 py-2 bg-amber-900/60 border border-amber-800 rounded-xl text-sm text-white placeholder-amber-400 focus:outline-none focus:ring-1 focus:ring-brand-500">
+                        <button type="submit" class="w-full py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm transition">Inscrever-se</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-amber-300/60 gap-4">
+                <p>&copy; 2026 Adoptails - Dê uma patinha. Todos os direitos reservados.</p>
+                <p>Feito com amor por animais indefesos ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: DETALHES DO PET -->
+    <div id="modalPetDetalhes" class="fixed inset-0 z-50 hidden bg-warmGray-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden my-8 transform transition-all relative">
+            <button onclick="closeModal('modalPetDetalhes')" class="absolute top-4 right-4 z-10 w-9 h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center text-warmGray-800 shadow transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modalPetContent">
+                <!-- Conteúdo inserido dinamicamente pelo JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: CADASTRAR NOVO PET -->
+    <div id="modalCadastrarPet" class="fixed inset-0 z-50 hidden bg-warmGray-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden my-8 p-6 sm:p-8 relative">
+            <button onclick="closeModal('modalCadastrarPet')" class="absolute top-4 right-4 w-9 h-9 bg-amber-100 hover:bg-amber-200 rounded-full flex items-center justify-center text-warmGray-800 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-amber-950">Cadastrar Pet para Adoção</h3>
+                <p class="text-xs text-warmGray-800 mt-1">Preencha as informações do animal para divulgá-lo na plataforma Adoptails.</p>
+            </div>
+
+            <form id="formCadastrarPet" onsubmit="salvarNovoPet(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-warmGray-800 mb-1">Nome do Pet *</label>
+                    <input type="text" id="petNome" required placeholder="Ex: Mel, Bob, Pipoca" class="w-full px-3 py-2 bg-amber-50/50 border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-warmGray-800 mb-1">Espécie *</label>
+                        <select id="petEspecie" required class="w-full px-3 py-2 bg-amber-50/50 border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="cachorro">Cachorro 🐶</option>
+                            <option value="gato">Gato 🐱</option>
+                            <option value="outro">Outro 🐰</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-warmGray-800 mb-1">Sexo *</label>
+                        <select id="petSexo" required class="w-full px-3 py-2 bg-amber-50/50 border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="Macho">Macho</option>
+                            <option value="Fêmea">Fêmea</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-warmGray-800 mb-1">Porte *</label>
+                        <select id="petPorte" required class="w-full px-3 py-2 bg-amber-50/50 border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="Pequeno">Pequeno</option>
+                            <option value="Médio">Médio</option>
+                            <option value="Grande">Grande</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-warmGray-800 mb-1">Idade Aprox. *</label>
+                        <input type="text" id="petIdade" required placeholder="Ex: 1 ano, 5 meses" class="w-full px-3 py-2 bg-amber-50/50 border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-warmGray-800 mb-1">URL da Foto do Pet *</label>
+                    <input type="url" id="petFoto" required placeholder="https://images.unsplash.com/..." class="w-full px-3 py-2 bg-amber-50/50 border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <p class="text-[10px] text-warmGray-800 mt-1">Cole o link direto de uma imagem da internet (Unsplash, Imgur, etc).</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-warmGray-800 mb-1">Temperamento/Tags (separados por vírgula)</label>
+                    <input type="text" id="petTags" placeholder="Ex: Dócil, Brincante, Vacinado, Carinhoso" class="w-full px-3 py-2 bg-amber-50/50 border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-warmGray-800 mb-1">História do Pet *</label>
+                    <textarea id="petHistoria" rows="3" required placeholder="Conte como ele foi resgatado e seu temperamento..." class="w-full px-3 py-2 bg-amber-50/50 border border-warmGray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+                </div>
+
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('modalCadastrarPet')" class="px-4 py-2 bg-warmGray-200 text-warmGray-800 font-semibold rounded-xl text-sm hover:bg-warmGray-300">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-tealBrand-600 hover:bg-tealBrand-700 text-white font-bold rounded-xl text-sm shadow transition">Salvar Pet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: VOLUNTÁRIO -->
+    <div id="modalVoluntario" class="fixed inset-0 z-50 hidden bg-warmGray-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden p-6 relative">
+            <button onclick="closeModal('modalVoluntario')" class="absolute top-4 right-4 w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center text-warmGray-800">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-amber-950 mb-2">Seja um Voluntário Adoptails</h3>
+            <p class="text-xs text-warmGray-800 mb-4">Preencha seus dados para entrar na nossa rede de ajuda.</p>
+            <form onsubmit="enviarVoluntario(event)" class="space-y-3">
+                <input type="text" required placeholder="Seu nome completo" class="w-full px-3 py-2 border rounded-xl text-sm">
+                <input type="tel" required placeholder="Seu WhatsApp" class="w-full px-3 py-2 border rounded-xl text-sm">
+                <select class="w-full px-3 py-2 border rounded-xl text-sm">
+                    <option>Como prefere ajudar?</option>
+                    <option>Passeios e cuidados com os pets</option>
+                    <option>Transporte / Feirinhas de Adoção</option>
+                    <option>Design e Redes Sociais</option>
+                    <option>Lar Temporário (LT)</option>
+                </select>
+                <button type="submit" class="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-sm shadow">Quero Fazer a Diferença</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DRAWER / SLIDE-OVER: FAVORITOS -->
+    <div id="favoritosDrawer" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleFavoritosDrawer()" class="absolute inset-0 bg-warmGray-900/50 backdrop-blur-xs"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-xl flex flex-col justify-between">
+                <div class="p-6 border-b border-amber-100 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-amber-950 flex items-center gap-2">
+                        <i class="fa-solid fa-heart text-amber-600"></i> Meus Favoritos
+                    </h3>
+                    <button onclick="toggleFavoritosDrawer()" class="text-warmGray-800 hover:text-amber-950">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+                
+                <div id="favoritosList" class="p-6 space-y-4 flex-1 overflow-y-auto">
+                    <!-- Lista de Favoritos injetada via JS -->
+                </div>
+
+                <div class="p-6 border-t border-amber-100 bg-amber-50/50">
+                    <button onclick="toggleFavoritosDrawer()" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm shadow">Fechar Lista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden transform transition-all duration-300 translate-y-10 opacity-0 bg-warmGray-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3">
+        <i id="toastIcon" class="fa-solid fa-check-circle text-teal-400 text-xl"></i>
+        <span id="toastMessage" class="text-sm font-medium">Operação realizada com sucesso!</span>
+    </div>
+
+
+    <!-- Banco de dados -->
+    <script src="database/pets-data.js"></script>
+    <script src="database/db.js"></script>
+    <!-- Lógica da aplicação -->
+    <script src="js/app.js"></script>
+</body>
+</html>
